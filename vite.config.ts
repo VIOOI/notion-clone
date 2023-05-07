@@ -15,6 +15,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "./src"),
+			"@root": path.resolve(__dirname, "./"),
+			"@public": path.resolve(__dirname, "./src/public/"),
 			"@atoms": path.resolve(__dirname, "./src/components/atoms"),
 			"@molecules": path.resolve(__dirname, "./src/components/molecules"),
 			"@organisms": path.resolve(__dirname, "./src/components/organisms"),
@@ -24,6 +26,8 @@ export default defineConfig({
 			"@app": path.resolve(__dirname, "./src/app"),
 			"@tests": path.resolve(__dirname, "./src/tests"),
 			"@utils": path.resolve(__dirname, "./src/utils"),
+			"@types": path.resolve(__dirname, "./src/types/"),
+			"@style": path.resolve(__dirname, "./src/style/"),
 		},
 	},
 	server: {

@@ -1,5 +1,5 @@
 
-import { appRoute } from "@pages/app";
+import { appRoute } from "@pages/app/app";
 import { notFoundRoute } from "@pages/notFound";
 import { createHistoryRouter, RouteInstance } from "atomic-router";
 import { createBrowserHistory } from "history";

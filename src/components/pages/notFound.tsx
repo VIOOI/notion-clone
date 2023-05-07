@@ -2,7 +2,7 @@ import { createRoute, redirect } from "atomic-router";
 import { createEvent } from "effector";
 import { onCleanup } from "solid-js";
 
-import { appRoute } from "./app";
+import { appRoute } from "./app/app";
 
 export const notFoundRoute = createRoute();
 

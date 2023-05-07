@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@solid-primitives/event-listener": "^2.2.4",
+    "@stitches/core": "^1.2.8",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "atomic-router": "^0.8.0",
