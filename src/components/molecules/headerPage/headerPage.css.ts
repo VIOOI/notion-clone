@@ -6,10 +6,18 @@ export const headerPageStyle = css({
 
 	position: "relative",
 	height: "$$height",
+	color: "$text",
 });
 
 export const headerCoverStyle = css({
+	$$left: "-5vw",
 	$$image: "",
+
+	"@sm": { $$left: "-10vw" },
+	"@md": { $$left: "-12.5vw" },
+	"@lg": { $$left: "-20vw" },
+	"@xl": { $$left: "-25vw" },
+
 	position: "absolute",
 	width: "$wscreen",
 	height: "100%",
@@ -18,7 +26,7 @@ export const headerCoverStyle = css({
 	backgroundSize: "cover",
 	backgroundRepeat: "no-repeat",
 	top: 0,
-	left: "-20vw",
+	left: "$$left",
 });
 
 export const authorStyle = css({
@@ -36,10 +44,11 @@ export const titleWrapper = css({
 	position: "absolute",
 	margin: 0,
 	bottom: ntr(5),
-	left: nti(2),
+	left: 0,
 	"& .title": {
 		fontSize: nti(10),
 		lineHeight: nti(10),
 		outline: "none",
+		color: "$text",
 	},
 });

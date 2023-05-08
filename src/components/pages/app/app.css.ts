@@ -13,7 +13,11 @@ export const appStyle = css({
 });
 
 export const appWrapperStyle = css({
-	$$width: "60vw",
+	$$width: "90vw",
+	"@sm": { $$width: "80vw" },
+	"@md": { $$width: "75vw" },
+	"@lg": { $$width: "60vw" },
+	"@xl": { $$width: "50vw" },
 
 	width: "$$width",
 	minHeight: "100vh",

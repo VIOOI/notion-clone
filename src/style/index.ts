@@ -44,6 +44,14 @@ export const { globalCss, css } = createStitches({
 			alignItems: "center",
 		}),
 	},
+	media: {
+		sm: "(min-width: 640px)",
+		md: "(min-width: 768px)",
+		lg: "(min-width: 1024px)",
+		xl: "(min-width: 1280px)",
+		"2xl": "(min-width: 1536px)",
+
+	},
 });
 
 export const light = createTheme({
@@ -56,7 +64,7 @@ export const light = createTheme({
 
 export const dark = createTheme({
 	colors: {
-		background: "rgba(15,15,15,1)",
+		background: "#0f0f0f",
 		foreground: "rgba(25,25,25,1)",
 		text: "#ffffff",
 	},
@@ -66,6 +74,6 @@ export const blue = createTheme({
 	colors: {
 		background: "#075985",
 		foreground: "#0ea5e9",
-		text: "#ffffff",
+		text: "#D8D8D8",
 	},
 });

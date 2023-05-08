@@ -8,8 +8,17 @@ export const newTag = createEvent();
 export const deleteTag = createEvent<string>();
 export const renameTag = createEvent<{id: string, newName: string}>();
 
+export const unocssLoading = createEvent();
+
+export const $isLoadedUnocss = createStore(false);
 export const $pageData = createStore<PageNotion>(page);
 $pageData.watch(source => console.log(source));
+
+sample({
+	clock: unocssLoading,
+	fn: () => true,
+	target: $isLoadedUnocss,
+});
 
 sample({
 	clock: newTitle,

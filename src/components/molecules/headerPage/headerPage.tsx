@@ -1,5 +1,6 @@
 import { Tags } from "@atoms/tags/tags";
 import { $pageData, newTitle } from "@pages/app/app.store";
+import { nti } from "@style/index";
 import debounce from "@utils/debounce";
 import { useUnit } from "effector-solid";
 import { createEffect, createSignal, Show, VoidComponent } from "solid-js";
@@ -25,7 +26,7 @@ export const HeaderPage: VoidComponent = () => {
 
 	return (
 		<div class={headerPageStyle({ css: {
-			$$height: isCoverEmpty() ? "15vh" : "30vh",
+			$$height: isCoverEmpty() ? nti(45) : nti(60),
 		} })}>
 
 			<Show when={!isCoverEmpty()}>
