@@ -7,9 +7,9 @@ import debounce from "@utils/debounce";
 import { useCustomHeaderStyle } from "@utils/useCustomStyle";
 import useLoaderUno from "@utils/useScriptLoader.hook";
 import { useStoreMap } from "effector-solid";
-import { Component, createEffect, onMount, splitProps } from "solid-js";
+import { Component, createEffect, createSignal, onMount, splitProps } from "solid-js";
 
-import { paragraphStyle } from "./paragraph.css";
+import { paragraphStyle, toChildrenStyle } from "./paragraph.css";
 
 type Props = {
 	id: string,
@@ -20,9 +20,10 @@ const Paragraph: Component<Props> = ({ id }) => {
 		$pageData,
 		store => store.blocks.filter(item => item.block_id == id)[0],
 	) as Accessor<BlockNotion<"paragraph">>;
+
 	const classes = useCustomHeaderStyle({
 		stitches: paragraphStyle,
-		css: {},
+		css: { },
 		style: paragraphStore().style,
 		overrideDefaultStyles: paragraphStore().overrideDefaultStyles,
 	});
@@ -51,6 +52,7 @@ const Paragraph: Component<Props> = ({ id }) => {
 			oninput={handleInput}
 		>
 			{ paragraphStore().content }
+			<span class={`${toChildrenStyle()} to__children`}></span>
 		</p>
 	);
 };

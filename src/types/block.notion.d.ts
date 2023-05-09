@@ -17,7 +17,9 @@ type ContentForBlockType<T extends BlockTypes> =
   never;
 
 type ChildrenForBlockType<T extends BlockTypes> =
-	T extends "container" ? MixedBlockNotionArray : never;
+	T extends "container" ? MixedBlockNotionArray :
+	T extends "header" ? MixedBlockNotionArray :
+	T extends "paragraph" ? MixedBlockNotionArray : never;
 
 type Header = { level: number; text: string; }
 type Paragraph = string;

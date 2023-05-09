@@ -3,6 +3,7 @@ import { createEvent, createStore, sample } from "effector";
 import { page } from "@types/moka.data";
 import { moveElement } from "@utils/moveElement";
 import { mergeSort } from "@utils/mergeSort";
+import { moveBlockToChildren } from "@utils/moveBlockToChildren";
 
 export const newTitle = createEvent<string>();
 
@@ -16,17 +17,20 @@ export const unocssLoading = createEvent();
 export const $isLoadedUnocss = createStore(false);
 export const $pageData = createStore<PageNotion>(page);
 $pageData.watch(source => console.log(source.blocks
-	.map(i => ({ id: i.block_id, order: i.order })),
+	.map(i => ({ 
+		id: i.block_id,
+		child: i.children,
+	})),
 ));
 
 
 sample({
 	clock: updateBlockOrder,
 	source: $pageData,
-	fn: (source, clock) => {
-		const blocks = moveElement(mergeSort(source.blocks), clock);
-		return { ...source, blocks };
-	},
+	fn: (source, clock) => ({
+		...source,
+		blocks: moveElement(mergeSort(source.blocks), clock),
+	}),
 	target: $pageData,
 });
 

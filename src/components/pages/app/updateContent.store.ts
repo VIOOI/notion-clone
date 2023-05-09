@@ -1,11 +1,25 @@
 import { BlockNotion } from "@types/block.notion";
 import { PageNotion } from "@types/pages.notion";
+import { mergeSort } from "@utils/mergeSort";
+import { moveBlockToChildren } from "@utils/moveBlockToChildren";
 import { createEvent, sample } from "effector";
 
 import { $pageData } from "./app.store";
 
 export const updateHeader = createEvent<{ id: string, text: string }>();
 export const updateParagraph = createEvent<{ id: string, text: string }>();
+
+export const addChildren = createEvent<{ parent: string, children: string }>();
+
+sample({
+	clock: addChildren,
+	source: $pageData,
+	fn: (source, clock) => ({
+		...source,
+		blocks: moveBlockToChildren(mergeSort(source.blocks), clock),
+	}),
+	target: $pageData,
+});
 
 sample({
 	clock: updateHeader,
