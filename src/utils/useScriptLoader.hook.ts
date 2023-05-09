@@ -13,7 +13,7 @@ export const useLoaderUno = (style: string): (() => boolean) => {
 	const isLoaded = useUnit($isLoadedUnocss);
 	const loaded = false;
 
-	console.log(style );
+	// console.log(style );
 	if (style == "" || style == undefined) return () => loaded;
 	if (isLoaded()) return () => loaded;
 

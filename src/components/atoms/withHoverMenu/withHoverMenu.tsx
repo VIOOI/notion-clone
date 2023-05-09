@@ -7,11 +7,10 @@ import addIcon from "@public/icon/content/add.svg?raw";
 import { menuStyle, menuWrapperStyle } from "./withHoverMenu.css";
 
 export const withHoverMenu = 
-	<T extends BlockTypes, P = { info: BlockNotion<T> }> 
+	<T extends BlockTypes, P = { id: string }> 
 	(HComponent: Component<P>): Component<P> => {
 
-		const menuBlock = (props: P) => {
-			const [ local ] = splitProps(props, [ "info" ]);
+		const menuBlock = ({ id }: P) => {
 			const [ hover, setHover ] = createSignal(false);
 			let timeoutId: number | undefined;
 
@@ -48,7 +47,7 @@ export const withHoverMenu =
 							<div class="options" innerHTML={optionIcon}></div>
 						</div>
 					</Show>
-					<HComponent info={local.info} />
+					<HComponent id={id} />
 				</div>
 			);
 		};

@@ -1,56 +1,58 @@
+import { withDragAndDrop } from "@atoms/withDragble/withDragble";
 import { withHoverMenu } from "@atoms/withHoverMenu/withHoverMenu";
+import { $pageData } from "@pages/app/app.store";
 import { updateParagraph } from "@pages/app/updateContent.store";
 import { BlockNotion } from "@types/block.notion";
 import debounce from "@utils/debounce";
 import { useCustomHeaderStyle } from "@utils/useCustomStyle";
 import useLoaderUno from "@utils/useScriptLoader.hook";
-import { Component, onMount, splitProps } from "solid-js";
+import { useStoreMap } from "effector-solid";
+import { Component, createEffect, onMount, splitProps } from "solid-js";
 
 import { paragraphStyle } from "./paragraph.css";
 
 type Props = {
-	info: BlockNotion<"paragraph">
+	id: string,
 }
 
-const Paragraph: Component<Props> = (props) => {
-	const [ { 
-		info: { 
-			content,
-			block_id,
-			style,
-			overrideDefaultStyles,
-		},
-	} ] = splitProps(props, [ "info" ]);
+const Paragraph: Component<Props> = ({ id }) => {
+	const paragraphStore = useStoreMap( 
+		$pageData,
+		store => store.blocks.filter(item => item.block_id == id)[0],
+	) as Accessor<BlockNotion<"paragraph">>;
 	const classes = useCustomHeaderStyle({
 		stitches: paragraphStyle,
 		css: {},
-		style, overrideDefaultStyles,
+		style: paragraphStore().style,
+		overrideDefaultStyles: paragraphStore().overrideDefaultStyles,
 	});
 
-	onMount(() => {
-		useLoaderUno(style);
-	});
-
-
+	onMount(() => { useLoaderUno(paragraphStore().style); });
 	const handleInput = debounce(
 		(event: InputEventSolid) => {
 			updateParagraph({
-				id: block_id,
+				id: paragraphStore().block_id,
 				text: event.target.textContent,
 			});
 		}, 2000,
 	);
 
+	createEffect(() => {
+		const tmp = document.querySelector(`[data-id="${paragraphStore().block_id}"]`) as HTMLHeadingElement;
+		// console.log(tmp);
+		tmp.dataset.order = paragraphStore().order.toString();
+	});
+
 	return (
 		<p 
 			class={classes()} 
-			data-id={block_id}
+			data-id={paragraphStore().block_id}
 			contenteditable={true}
 			oninput={handleInput}
 		>
-			{ content }
+			{ paragraphStore().content }
 		</p>
 	);
 };
 
-export const MenuParagraph = withHoverMenu(Paragraph);
+export const MenuParagraph = withDragAndDrop(withHoverMenu(Paragraph));

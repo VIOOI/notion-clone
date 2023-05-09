@@ -1,18 +1,34 @@
 import { PageNotion, Tags } from "@types/pages.notion";
 import { createEvent, createStore, sample } from "effector";
 import { page } from "@types/moka.data";
+import { moveElement } from "@utils/moveElement";
+import { mergeSort } from "@utils/mergeSort";
 
 export const newTitle = createEvent<string>();
 
 export const newTag = createEvent();
 export const deleteTag = createEvent<string>();
 export const renameTag = createEvent<{id: string, newName: string}>();
+export const updateBlockOrder = createEvent<{ from: number; to: number }>();
 
 export const unocssLoading = createEvent();
 
 export const $isLoadedUnocss = createStore(false);
 export const $pageData = createStore<PageNotion>(page);
-$pageData.watch(source => console.log(source));
+$pageData.watch(source => console.log(source.blocks
+	.map(i => ({ id: i.block_id, order: i.order })),
+));
+
+
+sample({
+	clock: updateBlockOrder,
+	source: $pageData,
+	fn: (source, clock) => {
+		const blocks = moveElement(mergeSort(source.blocks), clock);
+		return { ...source, blocks };
+	},
+	target: $pageData,
+});
 
 sample({
 	clock: unocssLoading,

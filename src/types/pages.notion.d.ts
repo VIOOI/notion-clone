@@ -8,7 +8,7 @@ export type PageNotion = {
   created_at: number,
   updated_at: number,
   author: AuthorInfo,
-  tags: Tags,
+  tags: TagsPage,
   comments: CommentsPage,
   blocks: MixedBlockNotionArray,
 }
